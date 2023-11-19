@@ -1,52 +1,82 @@
-const todos = [
-  { id: 1, desc: "go to the beach " },
-  { id: 2, desc: "go to the mall" },
-  { id: 3, desc: "go to the city center" },
-  { id: 4, desc: "go to school " },
+const posts = [
+  {
+    id: 1,
+    title: "Harry Potter 1 ",
+    author: "jk rolling",
+    content: "go to the beach ",
+  },
+  {
+    id: 2,
+    title: "Harry Potter 2 ",
+    author: "jk rolling",
+    content: "go to the mall",
+  },
+  {
+    id: 3,
+    title: "Harry Potter 3 ",
+    author: "jk rolling",
+    content: "go to the city center",
+  },
+  {
+    id: 4,
+    title: "Harry Potter 4",
+    author: "jk rolling",
+    content: "go to school ",
+  },
 ];
 
 const controller = {
-  getTodos: (req, res) => {
-    res.send(todos);
+  getPosts: (req, res) => {
+    res.send(posts);
   },
 
-  getTodoById: (req, res) => {
+  getPostById: (req, res) => {
     const specificId = parseInt(req.params.id);
-    const todo = todos.find((todo) => todo.id === specificId);
-    todo ? res.status(200).send(todo) : res.status(404).send("todo not found");
+    const post = posts.find((post) => post.id === specificId);
+    post ? res.status(200).send(post) : res.status(404).send("post not found");
   },
 
-  postTodo: (req, res) => {
-    const id = todos.length + 1;
-    const desc = req.body.desc;
+  postPost: (req, res) => {
+    const id = posts.length + 1;
+    const title = req.body.title;
+    const author = req.body.author;
+    const content = req.body.content;
     const item = {
       id: id,
-      desc: desc,
+      title: title,
+      author: author,
+      content: content,
     };
-    todos.push(item);
+    posts.push(item);
     res.status(201).send(item);
   },
 
-  putTodo: (req, res) => {
+  putPost: (req, res) => {
     const specificId = parseInt(req.params.id);
-    const description = req.body.desc;
-    const todo = todos.find((todo) => todo.id === specificId);
+    const title = req.body.title;
+    const author = req.body.author;
+    const content = req.body.content;
 
-    if (!todo) {
+    const post = posts.find((post) => post.id === specificId);
+
+    if (!post) {
       return res.status(404).send("to do not found ");
     }
 
-    todo.desc = description;
-    res.json(todo);
+    post.title = title;
+    post.author = author;
+    post.content = content;
+
+    res.json(post);
   },
 
-  deleteTodo: (req, res) => {
+  deletePost: (req, res) => {
     const specificId = parseInt(req.params.id);
-    const todoIndexToDelete = todos.findIndex((todo) => todo.id === specificId);
+    const postIndexToDelete = posts.findIndex((post) => post.id === specificId);
 
-    if (todoIndexToDelete === -1) res.status(404).send("todo not found");
+    if (postIndexToDelete === -1) res.status(404).send("post not found");
 
-    todos.splice(todoIndexToDelete, 1);
+    posts.splice(postIndexToDelete, 1);
     res.status(204).send();
   },
 };

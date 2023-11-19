@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config({ path: "./config/.env" });
 const port = process.env.PORT || 5001;
-const appRouter = require("./routes/todoRoutes");
+const appRouter = require("./routes/blogPostRoutes");
 
 const app = express();
 app.use(express.json());
